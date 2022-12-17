@@ -2,29 +2,40 @@
   <div class="container">
     <div class="header">
       <div class="logo">
-        Rule<span>Api</span>
+         <nuxt-link to="/">Rule<span>Api</span></nuxt-link>
       </div>
       <div class="header-operate">
-        <el-button type="danger" icon="el-icon-question">退出面板</el-button>
+        <el-button type="danger" @click="Exit()">退出面板</el-button>
       </div>
     </div>
     <div class="main">
       <div class="menu">
-        <div class="menu-box">
-          <div class="menu-text">
-            <nuxt-link to="/system/home"><i class="el-icon-s-home"></i>首页</nuxt-link>
-          </div>
-        </div>
-        <div class="menu-box">
-          <div class="menu-text">
-            <nuxt-link to="/system/home"><i class="el-icon-s-home"></i>系统管理</nuxt-link>
-          </div>
-          <div class="menu-sub">
-            <div class="menu-sub-box">
-              <nuxt-link to="/system/home">基本设置</nuxt-link>
-            </div>
-          </div>
-        </div>
+        <el-menu
+          default-active="2"
+          class="el-menu-vertical"
+          @open="handleOpen"
+          @close="handleClose">
+          <template v-for="(item,index) in menu">
+            <el-submenu :index="(index+1).toString()" v-if="item.subList.length>0">
+              <template slot="title">
+                <i :class="item.icon"></i>
+                <span>{{item.name}}</span>
+              </template>
+              <el-menu-item-group>
+                <template v-for="(sub,j) in item.subList">
+                  <el-menu-item  :index="(index+1).toString()+'-'+j">{{sub.name}}</el-menu-item>
+                </template>
+
+              </el-menu-item-group>
+            </el-submenu>
+            <el-menu-item :index="(index+1).toString()" v-else>
+              <i :class="item.icon"></i>
+              <span slot="title">{{item.name}}</span>
+            </el-menu-item>
+          </template>
+
+
+        </el-menu>
       </div>
       <div class="page-main">
         <Nuxt />
@@ -43,14 +54,14 @@ export default {
       menu:[
         {
           "name":"首页",
-          "icon":"",
-          "link":"",
+          "icon":"el-icon-s-home",
+          "link":"/system/home",
           "subList":[],
           "isShow":false,
         },
         {
           "name":"系统管理",
-          "icon":"",
+          "icon":"el-icon-s-tools",
           "link":"",
           "isShow":false,
           "subList":[
@@ -74,7 +85,7 @@ export default {
         },
         {
           "name":"用户模块",
-          "icon":"",
+          "icon":"el-icon-user-solid",
           "link":"",
           "isShow":false,
           "subList":[
@@ -86,12 +97,16 @@ export default {
               "name":"VIP设置",
               "link":"",
             },
+            {
+              "name":"用户管理",
+              "link":"",
+            },
           ]
         },
         {
           "name":"存储模块",
           "link":"",
-          "icon":"",
+          "icon":"el-icon-upload",
           "subList":[
             {
               "name":"基本参数",
@@ -116,23 +131,34 @@ export default {
         {
           "name":"文章模块",
           "link":"",
-          "icon":"",
+          "icon":"el-icon-s-management",
           "subList":[
             {
               "name":"基本参数",
               "link":"",
             },
-
+            {
+              "name":"文章管理",
+              "link":"",
+            },
+            {
+              "name":"独立页面",
+              "link":"",
+            },
           ],
           "isShow":false,
         },
         {
           "name":"商品模块",
           "link":"",
-          "icon":"",
+          "icon":"el-icon-s-shop",
           "subList":[
             {
               "name":"基本参数",
+              "link":"",
+            },
+            {
+              "name":"商品管理",
               "link":"",
             },
 
@@ -141,8 +167,12 @@ export default {
         },
         {
           "name":"支付模块",
-          "icon":"",
+          "icon":"el-icon-s-finance",
           "subList":[
+            {
+              "name":"财务管理",
+              "link":"",
+            },
             {
               "name":"支付宝配置",
               "link":"",
@@ -165,7 +195,7 @@ export default {
         {
           "name":"小程序模块",
           "link":"",
-          "icon":"",
+          "icon":"el-icon-s-opportunity",
           "subList":[
             {
               "name":"微信登录",
@@ -181,7 +211,7 @@ export default {
         {
           "name":"通知模块",
           "link":"",
-          "icon":"",
+          "icon":"el-icon-s-promotion",
           "subList":[
             {
               "name":"基本参数",
@@ -217,7 +247,21 @@ export default {
     }
   },
   methods: {
-
+    Exit(){
+      const that = this;
+      localStorage.removeItem("webkey");
+      that.$message({
+        message: "退出成功！",
+        type: 'success'
+      })
+      that.$router.push({path:'/'});
+    },
+     handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
+      }
   }
 }
 </script>

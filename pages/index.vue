@@ -59,6 +59,45 @@
         <el-button type="primary" @click="goInstall = false" v-if="installStatus==2">完 成</el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      title="Typecho未安装"
+      :visible.sync="isTypecho"
+      width="400px"
+      :close-on-click-modal="false">
+      <template v-if="!goInstallTypecho">
+        <span>Typecho未安装或者数据表前缀不正确，请检查您的API配置。</span>
+      </template>
+      <template v-if="goInstallTypecho">
+        <div class="dialog-form" v-if="installStatus==0">
+          <p class="dialog-tips">此操作将放弃链接typecho数据库，让API独立运行！</p>
+          <el-input v-model="key" placeholder="请输入管理Key" type="password"></el-input>
+          <el-input v-model="name" placeholder="请输入管理用户账号" type="text"></el-input>
+          <el-input v-model="password" placeholder="请输入管理用户密码" type="text"></el-input>
+        </div>
+        <div class="install-loading" v-if="installStatus==1">
+          <p>正在执行，请勿关闭窗口或刷新页面！</p>
+        </div>
+        <div class="install-data" v-if="installStatus==2">
+          <div class="install-data-text">
+            {{installData}}
+          </div>
+        </div>
+      </template>
+      <span slot="footer" class="dialog-footer">
+        <template v-if="!goInstallTypecho">
+          <el-button type="danger" @click="goTypecho()">我不想安装Typecho</el-button>
+          <el-button type="primary" @click="isTypecho = false">我知道了</el-button>
+        </template>
+        <template v-if="goInstallTypecho">
+          <el-button @click="isTypecho = false" v-if="installStatus==0">取 消</el-button>
+          <el-button type="primary" @click="installTypecho()" v-if="installStatus==0">确 定</el-button>
+          <el-button type="primary" :loading="true" v-if="installStatus==1">执行中</el-button>
+
+          <el-button type="danger" @click="installStatus = 0" v-if="installStatus==2">重 试</el-button>
+          <el-button type="primary" @click="isTypecho = false" v-if="installStatus==2">完 成</el-button>
+        </template>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -82,7 +121,12 @@ export default {
 
       installStatus:0,
       goInstall:false,
-      installData:""
+      installData:"",
+
+      isTypecho:false,
+      goInstallTypecho:false,
+      name:"",
+      password:"",
     }
   },
   beforeDestroy(){
@@ -148,24 +192,16 @@ export default {
           }
           if(res.code == 100){
             that.$alert('Redis连接失败或未安装！请检查您的API配置或Redis安装状态。', 'API警告', {
-              confirmButtonText: '确定',
+              confirmButtonText: '我知道了',
               type: 'warning'
             });
           }
           if(res.code == 101){
-            that.$alert('Typecho未安装或者数据表前缀不正确，请检查您的API配置。', 'API警告', {
-              confirmButtonText: '确定',
-              cancelButtonText: '我不想安装Typecho',
-              type: 'warning'
-            }).then(() => {
-
-            }).catch(() => {
-              that.installTypecho();
-            });
+            that.isTypecho=true;
           }
           if(res.code == 102){
             that.$alert('Mysql数据库连接失败或未安装，请检查您的API配置或Mysql安装状态。', 'API警告', {
-              confirmButtonText: '确定',
+              confirmButtonText: '我知道了',
               type: 'warning'
             });
           }
@@ -179,10 +215,37 @@ export default {
           })
       })
     },
+    goTypecho(){
+      const that = this;
+      that.installData = "";
+      that.installStatus = 0;
+      that.name = "";
+      that.password = "";
+      that.goInstallTypecho  = true;
+    },
     installTypecho(){
       const that = this;
-
-
+      var key = that.key;
+      if(that.name==""||that.password==""){
+        that.$message({
+          message: "请输入正确的参数",
+          type: 'error'
+        })
+      }
+      var data = {
+        "webkey":that.key,
+        "name":that.name,
+        "password":that.password,
+      }
+      that.installStatus = 1;
+      that.$axios.$post(that.$api.typechoInstall(),this.qs.stringify(data),{progress: false }).then(function (res) {
+        that.installStatus = 2;
+        that.installData = res.msg;
+      })
+      .catch(function (error) {
+        that.installStatus = 2;
+        that.installData = "网络错误，请重试！"
+      })
     },
     Install(){
       const that = this;
@@ -240,5 +303,7 @@ export default {
 }
 </script>
 <style>
-
+body{
+  background-color: #fff;
+}
 </style>

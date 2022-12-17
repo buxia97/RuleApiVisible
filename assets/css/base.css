@@ -1,62 +1,197 @@
-  *{
-    padding:0;
-    margin:0;
-    box-sizing:border-box;
-  }
-  html{
-    box-sizing:border-box;
-  }
-  body{
-    font-size:15px;
-    background:#fff;
-  }
-  .index-main{
-    position: absolute;
-    top: 25%;
-    text-align: center;
-    width: 100%;
-  }
-  .rule-logo h1{
-    font-size: 70px;
-  }
-  .rule-logo h1 span {
-      color: #e61f19;
-  }
-  .rule-version{
-    color: #999;
-    font-size: 13px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-  .new-version{
-    margin-top: 8px;
-  }
-  .new-version a{
-    text-decoration: none;
-    color: #2299DD;
-    margin-left: 5px;
-  }
-  .dialog-form{
-    padding: 0px 30px;
-  }
-  .dialog-tips{
-    margin-bottom: 10px;
-    color: #F56C6C;
-  }
-  .install-loading{
-    font-size: 16px;
-    padding: 0px 30px;
+*{
+  padding:0;
+  margin:0;
+  box-sizing:border-box;
+}
+html{
+  box-sizing:border-box;
+}
+::-webkit-scrollbar {
+  width:6px;
+  height:6px;
+}
+::-webkit-scrollbar-thumb{
+  border-radius:0px;
+  /* -webkit-box-shadow:inset 0 0 5px rgba(0,0,0,0.2); */
+  background:#f6f8f9;
+}
+::-webkit-scrollbar-track{
+  border-radius:10px;
+  background:#fff;
+}
+body{
+  font-size:15px;
+  line-height: 1;
+  color: #303133;
+  background:#f2f2f2;
+}
+img, video {
+    height: auto;
+    max-width: 100%;
+}
+a{
+  text-decoration: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+b, em, i, strong {
+    font-style: normal;
+    font-weight: 400;
+}
+.index-main{
+  position: absolute;
+  top: 25%;
+  text-align: center;
+  width: 100%;
+}
+.rule-logo h1{
+  font-size: 70px;
+}
+.rule-logo h1 span {
     color: #e61f19;
-    font-weight: bold;
-  }
-  .install-data{
-    width: 100%;
-    height: 120px;
-    background: #f9f9f9;
-    padding: 10px;
-    overflow: auto;
-  }
-  .install-data-text{
-    width: 100%;
-    word-break:break-all;
-  }
+}
+.rule-version{
+  color: #999;
+  font-size: 13px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+.new-version{
+  margin-top: 8px;
+}
+.new-version a{
+  text-decoration: none;
+  color: #2299DD;
+  margin-left: 5px;
+}
+.dialog-form{
+  padding: 0px 30px;
+}
+.dialog-form .el-input{
+  margin-bottom: 10px;
+}
+.dialog-tips{
+  margin-bottom: 10px;
+  color: #F56C6C;
+}
+.install-loading{
+  font-size: 16px;
+  padding: 0px 30px;
+  color: #e61f19;
+  font-weight: bold;
+}
+.install-data{
+  width: 100%;
+  height: 120px;
+  background: #f9f9f9;
+  padding: 10px;
+  overflow: auto;
+}
+.install-data-text{
+  width: 100%;
+  word-break:break-all;
+}
+.header{
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 70px;
+  background: #fff;
+  box-shadow: 0 1px 6px 0 rgb(32 33 36 / 28%);
+  z-index: 500;
+}
+.logo{
+  width: 230px;
+  height: 70px;
+  text-align: center;
+  float: left;
+  position: relative;
+}
+.logo a{
+  color: #111;
+  font-weight: bold;
+  line-height: 70px;
+  font-size: 38px;
+}
+.logo span{
+  color: #e61f19;
+}
+.header-operate{
+  float: right;
+  padding-right: 30px;
+  line-height: 70px;
+}
+.main{
+  width: 100%;
+  height: calc(100vh - 70px);
+  position: fixed;
+  top: 70px;
+  left: 0;
+}
+.menu{
+  width: 230px;
+  height: 100%;
+  overflow: auto;
+  float: left;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding-top: 20px;
+  border-right: solid 1px #e6e6e6;
+}
+.menu .el-menu{
+  border: none;
+}
+.menu .el-menu-item-group__title{
+  display: none;
+}
+.el-menu-item-group{
+  background-color: #f7f7f7;
+}
+.page-main{
+  width: calc(100% - 230px);
+  float: right;
+  overflow: auto;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+  padding: 30px;
+}
+.footer{
+  width: 100%;
+}
+.page-hader{
+  color: #606266;
+}
+.page-hader h3{
+  font-size: 30px;
+}
+.all-data{
+  width: 100%;
+}
+.all-data-box{
+  background: #f6f8f9;
+  border-radius: 5px;
+  padding: 18px 24px 18px 24px;
+}
+.all-data-box h4{
+  font-size: 19px;
+  margin-bottom: 15px;
+}
+.all-data-box p{
+  font-size: 35px;
+  color: #2299DD;
+}
+.all-data-box p span{
+  color: #606266;
+  font-size: 13px;
+  margin-left: 10px;
+}
+.data-box {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 100%;
+  overflow: hidden;
+  padding: 32px 24px;
+}

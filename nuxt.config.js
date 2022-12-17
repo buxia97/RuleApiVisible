@@ -49,10 +49,10 @@ export default {
   },
   axios: {
     retry: false,
-    // proxy:true,
     timeout: 90000
   },
   env: {
     baseUrl: 'https://api.ruletree.club/'
+    //baseUrl: 'http://127.0.0.1:8081/'
   }
 }
