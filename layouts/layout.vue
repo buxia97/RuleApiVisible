@@ -97,10 +97,6 @@ export default {
               "name":"VIP设置",
               "link":"",
             },
-            {
-              "name":"用户管理",
-              "link":"",
-            },
           ]
         },
         {
@@ -136,15 +132,7 @@ export default {
             {
               "name":"基本参数",
               "link":"",
-            },
-            {
-              "name":"文章管理",
-              "link":"",
-            },
-            {
-              "name":"独立页面",
-              "link":"",
-            },
+            }
           ],
           "isShow":false,
         },
@@ -156,11 +144,7 @@ export default {
             {
               "name":"基本参数",
               "link":"",
-            },
-            {
-              "name":"商品管理",
-              "link":"",
-            },
+            }
 
           ],
           "isShow":false,

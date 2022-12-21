@@ -35,4 +35,8 @@ module.exports = {
   allConfig:function(){
   	return process.env.baseUrl + 'system/allConfig';
   },
+  getRuleNews:function(){
+  	return 'https://api.ruletree.club/typechoMetas/selectContents';
+  },
+  
 }
