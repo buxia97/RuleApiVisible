@@ -17,6 +17,12 @@ module.exports = {
   getConfig:function(){
   	return process.env.baseUrl + 'system/getConfig';
   },
+  getApiConfig:function(){
+  	return process.env.baseUrl + 'system/getApiConfig';
+  },
+  apiConfigUpdate:function(){
+  	return process.env.baseUrl + 'system/apiConfigUpdate';
+  },
   setupMysql:function(){
   	return process.env.baseUrl + 'system/setupMysql';
   },
@@ -38,5 +44,5 @@ module.exports = {
   getRuleNews:function(){
   	return 'https://api.ruletree.club/typechoMetas/selectContents';
   },
-  
+
 }

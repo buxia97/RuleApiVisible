@@ -23,12 +23,12 @@
               </template>
               <el-menu-item-group>
                 <template v-for="(sub,j) in item.subList">
-                  <el-menu-item  :index="(index+1).toString()+'-'+j">{{sub.name}}</el-menu-item>
+                  <el-menu-item  :index="(index+1).toString()+'-'+j"  @click="goPage(sub.link)">{{sub.name}}</el-menu-item>
                 </template>
 
               </el-menu-item-group>
             </el-submenu>
-            <el-menu-item :index="(index+1).toString()" v-else>
+            <el-menu-item :index="(index+1).toString()" v-else @click="goPage(item.link)">
               <i :class="item.icon"></i>
               <span slot="title">{{item.name}}</span>
             </el-menu-item>
@@ -67,19 +67,23 @@ export default {
           "subList":[
             {
               "name":"基本设置",
-              "link":"",
+              "link":"/system/config/setUp",
             },
             {
               "name":"Mysql设置",
-              "link":"",
+              "link":"/system/config/mysql",
             },
             {
               "name":"邮箱发信设置",
-              "link":"",
+              "link":"/system/config/email",
             },
             {
               "name":"Redis设置",
-              "link":"",
+              "link":"/system/config/redis",
+            },
+            {
+              "name":"CR云控",
+              "link":"/system/config/cr",
             },
           ]
         },
@@ -91,12 +95,8 @@ export default {
           "subList":[
             {
               "name":"基本参数",
-              "link":"",
-            },
-            {
-              "name":"VIP设置",
-              "link":"",
-            },
+              "link":"/system/user/setUp",
+            }
           ]
         },
         {
@@ -240,12 +240,19 @@ export default {
       })
       that.$router.push({path:'/'});
     },
-     handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    goPage(link){
+      const that = this;
+      if(link==''){
+        return false;
       }
+      that.$router.push({path:link});
+    }
   }
 }
 </script>

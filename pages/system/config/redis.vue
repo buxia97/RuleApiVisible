@@ -4,30 +4,26 @@
       <el-col :span="24">
         <div class="data-box">
           <div class="page-title">
-            <h4>用户参数设置</h4>
-            <p>在这里设置配置用户积分体系，VIP等资产相关功能</p>
+            <h4>Redis设置</h4>
+            <p>Redis用于验证用户登录状态，缓存低更新率数据，修改后需重启接口生效。</p>
           </div>
           <div class="page-form">
             <el-form ref="form" :model="form" label-position="top" label-width="80px">
               <el-form-item>
-                <p slot="label" class="form-label">积分充值比例<span>必须为整数，一元钱等于多少积分</span></p>
-                <el-input v-model="form.scale" type="number"  placeholder="请输入积分充值比例"></el-input>
+                <p slot="label" class="form-label">Redis地址</p>
+                <el-input v-model="form.redisHost"  placeholder="请输入Redis地址"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">签到最高赠送积分<span>必须为整数，为0或小于1则关闭签到功能</span></p>
-                <el-input v-model="form.clock" type="number"  placeholder="请输入签到最高赠送积分"></el-input>
+                <p slot="label" class="form-label">Redis密码</p>
+                <el-input v-model="form.redisPassword"  placeholder="请输入Redis密码"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">一天VIP价格<span>必须为整数</span></p>
-                <el-input v-model="form.vipPrice" type="number" placeholder="请输入一天VIP价格"></el-input>
+                <p slot="label" class="form-label">Redis端口</p>
+                <el-input v-model="form.redisPort"  placeholder="请输入Redis端口"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">多少天VIP等于永久<span>必须为整数，当用户购买VIP时间超过指定天数时，将变为永久VIP</span></p>
-                <el-input v-model="form.vipDay" type="number" placeholder="请输入多少天VIP等于永久"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <p slot="label" class="form-label">VIP折扣<span>商品价格乘以该折扣，为0.0则免费购买商品，为1.0则为原价购买。注意，商品可单独设置折扣，权重高于此设置。</span></p>
-                <el-input v-model="form.vipDiscount" placeholder="请输入VIP折扣"></el-input>
+                <p slot="label" class="form-label">Redis数据前缀<span>在同时存在多个RuleApi服务时，防止数据紊乱</span></p>
+                <el-input v-model="form.redisPrefix"  placeholder="请输入Redis数据前缀"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="save()">保存设置</el-button>
@@ -45,19 +41,17 @@ export default {
   layout: 'layout',
    head() {
     return {
-      title: "用户参数设置",
-
+      title: "Redis设置",
     }
   },
   data() {
     return {
       key:"",
       form:{
-        scale: '',
-        clock: '',
-        vipPrice: '',
-        vipDay: '',
-        vipDiscount: '',
+        redisHost: '',
+        redisPassword: '',
+        redisPort: '',
+        redisPrefix: '',
       }
     }
   },
@@ -84,18 +78,19 @@ export default {
   methods: {
     save() {
       const that = this;
+
       var post=that.form;
+      var data = {
+        "webkey":that.key,
+        "params":JSON.stringify(post)
+      }
       const loading = this.$loading({
         lock: true,
         text: 'Loading',
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.7)'
       });
-      var data = {
-        "webkey":that.key,
-        "params":JSON.stringify(post)
-      }
-      that.$axios.$post(that.$api.apiConfigUpdate(),this.qs.stringify(data)).then(function (res) {
+      that.$axios.$post(that.$api.setupRedis(),this.qs.stringify(data)).then(function (res) {
         loading.close();
         if(res.code == 1){
           that.$message({
@@ -130,14 +125,13 @@ export default {
         var data = {
           "webkey":that.key,
         }
-        that.$axios.$post(that.$api.getApiConfig(),this.qs.stringify(data)).then(function (res) {
+        that.$axios.$post(that.$api.allConfig(),this.qs.stringify(data)).then(function (res) {
           loading.close();
           if(res.code==1){
-            that.form.scale = res.data.scale;
-            that.form.clock = res.data.clock;
-            that.form.vipPrice = res.data.vipPrice;
-            that.form.vipDay = res.data.vipDay;
-            that.form.vipDiscount = res.data.vipDiscount;
+            that.form.redisHost = res.data.redisHost;
+            that.form.redisPassword = res.data.redisPassword;
+            that.form.redisPort = res.data.redisPort;
+            that.form.redisPrefix = res.data.redisPrefix;
           }
         })
         .catch(function (error) {

@@ -2,7 +2,7 @@
   <div class="page-container">
     <el-row :gutter="15">
       <el-col :span="24">
-        <div class="data-box">
+        <div class="data-box ">
           <div class="home-title">
             <h3>欢迎使用RuleApi</h3>
             <p>2023全面升级！一款功能全面的综合性社区/内容/知识付费API程序，始终坚持开源免费，为每个有想法的人，提供创建自己应用的最初动力，目前可支持对接Typecho程序网站或独立运行。</p>
