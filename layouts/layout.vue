@@ -82,6 +82,10 @@ export default {
               "link":"/system/config/redis",
             },
             {
+              "name":"系统访问Key",
+              "link":"/system/config/key",
+            },
+            {
               "name":"CR云控",
               "link":"/system/config/cr",
             },
@@ -105,20 +109,16 @@ export default {
           "icon":"el-icon-upload",
           "subList":[
             {
-              "name":"基本参数",
-              "link":"",
-            },
-            {
               "name":"COS设置",
-              "link":"",
+              "link":"/system/upload/cos",
             },
             {
               "name":"OSS设置",
-              "link":"",
+              "link":"/system/upload/oss",
             },
             {
               "name":"远程FTP设置",
-              "link":"",
+              "link":"/system/upload/ftp",
             },
 
           ],
@@ -131,47 +131,43 @@ export default {
           "subList":[
             {
               "name":"基本参数",
-              "link":"",
+              "link":"/system/content/setUp",
             }
           ],
           "isShow":false,
         },
-        {
-          "name":"商品模块",
-          "link":"",
-          "icon":"el-icon-s-shop",
-          "subList":[
-            {
-              "name":"基本参数",
-              "link":"",
-            }
+        // {
+        //   "name":"商品模块",
+        //   "link":"",
+        //   "icon":"el-icon-s-shop",
+        //   "subList":[
+        //     {
+        //       "name":"基本参数",
+        //       "link":"",
+        //     }
 
-          ],
-          "isShow":false,
-        },
+        //   ],
+        //   "isShow":false,
+        // },
         {
           "name":"支付模块",
           "icon":"el-icon-s-finance",
           "subList":[
             {
-              "name":"财务管理",
-              "link":"",
-            },
-            {
               "name":"支付宝配置",
-              "link":"",
+              "link":"/system/pay/alipay",
             },
             {
               "name":"微信支付配置",
-              "link":"",
+              "link":"/system/pay/wxpay",
             },
             {
               "name":"易支付配置",
-              "link":"",
+              "link":"/system/pay/epay",
             },
             {
               "name":"卡密配置",
-              "link":"",
+              "link":"/system/pay/tokenpay",
             }
           ],
           "isShow":false,

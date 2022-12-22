@@ -4,26 +4,30 @@
       <el-col :span="24">
         <div class="data-box">
           <div class="page-title">
-            <h4>Mysql设置</h4>
-            <p>设置Mysql链接和基本信息，修改后需重启接口生效。</p>
+            <h4>FTP上传配置</h4>
+            <p>配置远程FTP上传，部分可能不支持，和其它上传方式三选一配置即可。</p>
           </div>
           <div class="page-form">
             <el-form ref="form" :model="form" label-position="top" label-width="80px">
               <el-form-item>
-                <p slot="label" class="form-label">Mysql链接串<span>同时包括了地址，端口和数据库名，请注意修改</span></p>
-                <el-input v-model="form.dataUrl"  placeholder="请输入Mysql链接串"></el-input>
+                <p slot="label" class="form-label">FTP地址<span>填写域名或者IP地址，不需要ftp请求头</span></p>
+                <el-input v-model="form.ftpHost"  placeholder="请输入FTP地址"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">Mysql用户名</p>
-                <el-input v-model="form.dataUsername"  placeholder="请输入Mysql用户名"></el-input>
+                <p slot="label" class="form-label">FTP端口号</p>
+                <el-input v-model="form.ftpPort"  placeholder="请输入FTP端口号"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">Mysql密码</p>
-                <el-input v-model="form.dataPassword"  placeholder="请输入Mysql密码"></el-input>
+                <p slot="label" class="form-label">FTP用户名</p>
+                <el-input v-model="form.ftpUsername"  placeholder="请输入FTP用户名"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">数据表前缀<span>数据表前缀，默认就是typecho</span></p>
-                <el-input v-model="form.dataPrefix"  placeholder="请输入数据表前缀"></el-input>
+                <p slot="label" class="form-label">FTP密码</p>
+                <el-input v-model="form.ftpPassword"  placeholder="请输入FTP密码"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <p slot="label" class="form-label">FTP根目录<span>暂时只支持一级目录，如/www</span>></p>
+                <el-input v-model="form.ftpBasePath"  placeholder="请输入FTP根目录"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="save()">保存设置</el-button>
@@ -41,17 +45,18 @@ export default {
   layout: 'layout',
    head() {
     return {
-      title: "Mysql设置",
+      title: "远程FTP上传配置",
     }
   },
   data() {
     return {
       key:"",
       form:{
-        dataUrl: '',
-        dataUsername: '',
-        dataPassword: '',
-        dataPrefix: '',
+        ftpHost: '',
+        ftpPort: '',
+        ftpUsername: '',
+        ftpPassword: '',
+        ftpBasePath: '',
       }
     }
   },
@@ -90,7 +95,7 @@ export default {
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.7)'
       });
-      that.$axios.$post(that.$api.setupMysql(),this.qs.stringify(data)).then(function (res) {
+      that.$axios.$post(that.$api.apiConfigUpdate(),this.qs.stringify(data)).then(function (res) {
         loading.close();
         if(res.code == 1){
           that.$message({
@@ -119,12 +124,14 @@ export default {
         var data = {
           "webkey":that.key,
         }
-        that.$axios.$post(that.$api.allConfig(),this.qs.stringify(data)).then(function (res) {
+        that.$axios.$post(that.$api.getApiConfig(),this.qs.stringify(data)).then(function (res) {
           if(res.code==1){
-            that.form.dataUrl = res.data.dataUrl;
-            that.form.dataUsername = res.data.dataUsername;
-            that.form.dataPassword = res.data.dataPassword;
-            that.form.dataPrefix = res.data.dataPrefix;
+            that.form.ftpHost = res.data.ftpHost;
+            that.form.ftpPort = res.data.ftpPort;
+            that.form.ftpUsername = res.data.ftpUsername;
+            that.form.ftpPassword = res.data.ftpPassword;
+            that.form.ftpBasePath = res.data.ftpBasePath;
+
           }
         })
         .catch(function (error) {

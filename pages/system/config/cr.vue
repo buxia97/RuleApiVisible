@@ -106,24 +106,16 @@ export default {
     },
     getConfig(){
         const that = this;
-        const loading = this.$loading({
-          lock: true,
-          text: 'Loading',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
-        });
         var data = {
           "webkey":that.key,
         }
         that.$axios.$post(that.$api.getApiConfig(),this.qs.stringify(data)).then(function (res) {
-          loading.close();
           if(res.code==1){
             that.form.cloudUid = res.data.cloudUid;
             that.form.cloudUrl = res.data.cloudUrl;
           }
         })
         .catch(function (error) {
-          loading.close();
           console.log(error)
           that.$message({
             message: "接口请求异常，请检查网络！",
