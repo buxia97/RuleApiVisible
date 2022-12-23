@@ -38,6 +38,7 @@ a{
   outline: none;
   cursor: pointer;
   transition: .2s;
+  color: #409EFF;
 }
 b, em, i, strong {
     font-style: normal;

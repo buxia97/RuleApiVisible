@@ -4,26 +4,18 @@
       <el-col :span="24">
         <div class="data-box">
           <div class="page-title">
-            <h4>易支付配置</h4>
-            <p>易支付接口可支持所有核心程序为彩虹易支付的第三方支付平台。不过，为了财产安全，对于非官方的支付渠道，请谨慎选择。可能不支持部分关闭API支付模式或者魔改的易支付程序。</p>
+            <h4>QQ配置</h4>
+            <p>在这里配置QQ登录和小程序相关信息。</p>
           </div>
           <div class="page-form">
             <el-form ref="form" :model="form" label-position="top" label-width="80px">
               <el-form-item>
-                <p slot="label" class="form-label">易支付接口地址<span>输入易支付平台的接口地址</span></p>
-                <el-input v-model="form.epayUrl"  placeholder="请输入易支付接口地址"></el-input>
+                <p slot="label" class="form-label">QQ小程序APPID<span>可不填，负责QQ小程序登录</span></p>
+                <el-input v-model="form.qqAppletsAppid"  placeholder="请输入qqAppletsAppid"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">易支付商户ID</p>
-                <el-input v-model="form.epayPid"  placeholder="请输入易支付商户ID"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <p slot="label" class="form-label">易支付商户密钥</p>
-                <el-input v-model="form.epayKey"  placeholder="请输入易支付商户密钥"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <p slot="label" class="form-label">易支付回调地址<span>根据您的接口域名和访问协议进行填写，如：http://127.0.0.1/pay/EPayNotify</span></p>
-                <el-input v-model="form.epayNotifyUrl"  placeholder="请输入易支付回调地址"></el-input>
+                <p slot="label" class="form-label">QQ小程序Secret<span>可不填，负责QQ小程序登录</span></p>
+                <el-input v-model="form.qqAppletsSecret"  placeholder="请输入qqAppletsSecret"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="save()">保存设置</el-button>
@@ -41,17 +33,15 @@ export default {
   layout: 'layout',
    head() {
     return {
-      title: "易支付配置",
+      title: "QQ配置",
     }
   },
   data() {
     return {
       key:"",
       form:{
-        epayUrl: '',
-        epayPid: '',
-        epayKey: '',
-        epayNotifyUrl: '',
+        qqAppletsAppid: '',
+        qqAppletsSecret: '',
       }
     }
   },
@@ -121,10 +111,8 @@ export default {
         }
         that.$axios.$post(that.$api.getApiConfig(),this.qs.stringify(data)).then(function (res) {
           if(res.code==1){
-            that.form.epayUrl = res.data.epayUrl;
-            that.form.epayPid = res.data.epayPid;
-            that.form.epayKey = res.data.epayKey;
-            that.form.epayNotifyUrl = res.data.epayNotifyUrl;
+            that.form.qqAppletsAppid = res.data.qqAppletsAppid;
+            that.form.qqAppletsSecret = res.data.qqAppletsSecret;
           }
         })
         .catch(function (error) {

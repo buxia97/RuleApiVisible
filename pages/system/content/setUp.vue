@@ -101,6 +101,16 @@ export default {
       const that = this;
 
       var post=that.form;
+      if(that.form.disableCode){
+        post.disableCode==1;
+      }else{
+        post.disableCode==0;
+      }
+      if(that.form.allowDelete){
+        post.allowDelete==1;
+      }else{
+        post.allowDelete==0;
+      }
       var data = {
         "webkey":that.key,
         "params":JSON.stringify(post)

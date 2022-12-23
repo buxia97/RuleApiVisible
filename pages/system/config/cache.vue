@@ -4,26 +4,30 @@
       <el-col :span="24">
         <div class="data-box">
           <div class="page-title">
-            <h4>易支付配置</h4>
-            <p>易支付接口可支持所有核心程序为彩虹易支付的第三方支付平台。不过，为了财产安全，对于非官方的支付渠道，请谨慎选择。可能不支持部分关闭API支付模式或者魔改的易支付程序。</p>
+            <h4>缓存配置</h4>
+            <p>配置API各模块数据的Redis缓存时间。</p>
           </div>
           <div class="page-form">
             <el-form ref="form" :model="form" label-position="top" label-width="80px">
               <el-form-item>
-                <p slot="label" class="form-label">易支付接口地址<span>输入易支付平台的接口地址</span></p>
-                <el-input v-model="form.epayUrl"  placeholder="请输入易支付接口地址"></el-input>
+                <p slot="label" class="form-label">用户登录状态持续时间（s）</p>
+                <el-input v-model="form.usertime"  placeholder="请输入用户登录状态持续时间"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">易支付商户ID</p>
-                <el-input v-model="form.epayPid"  placeholder="请输入易支付商户ID"></el-input>
+                <p slot="label" class="form-label">内容列表缓存时间（s）</p>
+                <el-input v-model="form.contentCache"  placeholder="请输入内容列表缓存时间"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">易支付商户密钥</p>
-                <el-input v-model="form.epayKey"  placeholder="请输入易支付商户密钥"></el-input>
+                <p slot="label" class="form-label">内容详情缓存时间（s）</p>
+                <el-input v-model="form.contentInfoCache"  placeholder="请输入内容详情缓存时间"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">易支付回调地址<span>根据您的接口域名和访问协议进行填写，如：http://127.0.0.1/pay/EPayNotify</span></p>
-                <el-input v-model="form.epayNotifyUrl"  placeholder="请输入易支付回调地址"></el-input>
+                <p slot="label" class="form-label">评论列表缓存时间（s）</p>
+                <el-input v-model="form.CommentCache"  placeholder="请输入评论列表缓存时间"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <p slot="label" class="form-label">用户列表缓存时间（s）</p>
+                <el-input v-model="form.userCache"  placeholder="请输入用户列表缓存时间"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="save()">保存设置</el-button>
@@ -41,17 +45,18 @@ export default {
   layout: 'layout',
    head() {
     return {
-      title: "易支付配置",
+      title: "缓存配置",
     }
   },
   data() {
     return {
       key:"",
       form:{
-        epayUrl: '',
-        epayPid: '',
-        epayKey: '',
-        epayNotifyUrl: '',
+        usertime: '',
+        contentCache: '',
+        contentInfoCache: '',
+        CommentCache: '',
+        userCache: '',
       }
     }
   },
@@ -90,7 +95,7 @@ export default {
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.7)'
       });
-      that.$axios.$post(that.$api.apiConfigUpdate(),this.qs.stringify(data)).then(function (res) {
+      that.$axios.$post(that.$api.setupMysql(),this.qs.stringify(data)).then(function (res) {
         loading.close();
         if(res.code == 1){
           that.$message({
@@ -119,12 +124,13 @@ export default {
         var data = {
           "webkey":that.key,
         }
-        that.$axios.$post(that.$api.getApiConfig(),this.qs.stringify(data)).then(function (res) {
+        that.$axios.$post(that.$api.allConfig(),this.qs.stringify(data)).then(function (res) {
           if(res.code==1){
-            that.form.epayUrl = res.data.epayUrl;
-            that.form.epayPid = res.data.epayPid;
-            that.form.epayKey = res.data.epayKey;
-            that.form.epayNotifyUrl = res.data.epayNotifyUrl;
+            that.form.usertime = res.data.usertime;
+            that.form.contentCache = res.data.contentCache;
+            that.form.contentInfoCache = res.data.contentInfoCache;
+            that.form.CommentCache = res.data.CommentCache;
+            that.form.userCache = res.data.userCache;
           }
         })
         .catch(function (error) {

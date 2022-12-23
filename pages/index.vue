@@ -12,7 +12,7 @@
         <el-row>
           <el-button type="danger" icon="el-icon-s-opportunity" @click="Install()">安装及更新</el-button>
           <el-button type="primary" icon="el-icon-s-tools" @click="goSystem = true">管理中心</el-button>
-          <el-button type="success" icon="el-icon-question" @click="goHelp()">帮助教程</el-button>
+          <!-- <el-button type="success" icon="el-icon-question" @click="goHelp()">帮助教程</el-button> -->
         </el-row>
       </div>
     </div>

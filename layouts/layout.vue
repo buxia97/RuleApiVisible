@@ -82,6 +82,10 @@ export default {
               "link":"/system/config/redis",
             },
             {
+              "name":"缓存设置",
+              "link":"/system/config/cache",
+            },
+            {
               "name":"系统访问Key",
               "link":"/system/config/key",
             },
@@ -164,10 +168,6 @@ export default {
             {
               "name":"易支付配置",
               "link":"/system/pay/epay",
-            },
-            {
-              "name":"卡密配置",
-              "link":"/system/pay/tokenpay",
             }
           ],
           "isShow":false,
@@ -179,11 +179,23 @@ export default {
           "subList":[
             {
               "name":"微信登录",
-              "link":"",
+              "link":"/system/applets/weixin",
             },
             {
               "name":"QQ登录",
-              "link":"",
+              "link":"/system/applets/qq",
+            },
+          ],
+          "isShow":false,
+        },
+        {
+          "name":"广告模块",
+          "link":"",
+          "icon":"el-icon-video-play",
+          "subList":[
+            {
+              "name":"基本参数",
+              "link":"/system/ad/setUp",
             },
           ],
           "isShow":false,
@@ -194,12 +206,8 @@ export default {
           "icon":"el-icon-s-promotion",
           "subList":[
             {
-              "name":"基本参数",
-              "link":"",
-            },
-            {
               "name":"UniPush配置",
-              "link":"",
+              "link":"/system/push/setUp",
             },
           ],
           "isShow":false,
