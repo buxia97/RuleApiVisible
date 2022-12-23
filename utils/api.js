@@ -1,3 +1,4 @@
+
 module.exports = {
   isInstall:function(){
   	return process.env.baseUrl + "install/isInstall";

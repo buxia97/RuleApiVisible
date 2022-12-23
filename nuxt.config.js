@@ -52,7 +52,7 @@ export default {
     timeout: 90000
   },
   env: {
-    baseUrl: 'https://api.ruletree.club/'
-    //baseUrl: 'http://127.0.0.1:8081/'
+    //baseUrl: 'https://api.ruletree.club/'
+    baseUrl: '/'
   }
 }
