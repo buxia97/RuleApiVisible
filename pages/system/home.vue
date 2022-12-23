@@ -20,7 +20,7 @@
       </el-col>
     </el-row>
     <el-row :gutter="15">
-      <el-col :span="12">
+      <el-col :lg="12" :md="24">
         <div class="data-box">
           <div class="data-box-title">
             <h4>官方公告和教程
@@ -44,7 +44,7 @@
           </div>
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :lg="12" :md="24">
         <div class="data-box">
           <div class="data-box-title">
             <h4>官方及二开应用
