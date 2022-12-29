@@ -5,7 +5,7 @@
         <div class="data-box">
           <div class="page-title">
             <h4>缓存配置</h4>
-            <p>配置API各模块数据的Redis缓存时间。</p>
+            <p>配置API各模块数据的Redis缓存时间，修改后需重启接口生效。</p>
           </div>
           <div class="page-form">
             <el-form ref="form" :model="form" label-position="top" label-width="80px">

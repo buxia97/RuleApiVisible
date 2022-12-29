@@ -13,7 +13,7 @@
               <el-button type="primary" icon="el-icon-document" @click="goLinks('https://www.ruletree.club/api/RuleApi.htm#001')">接口文档</el-button>
               <el-button type="success" icon="el-icon-user" @click="goLinks('https://jq.qq.com/?_wv=1027&k=Br1YNqz9')">QQ交流群</el-button>
               <el-button icon="el-icon-view" class="github-bg" @click="goLinks('https://github.com/buxia97/RuleApi')">开源地址</el-button>
-              <el-button  class="money-bg" icon="el-icon-thumb" @click="goLinks('https://www.ruletree.club/sponsor.html')">赞助开发者</el-button>
+              <el-button  class="money-bg" icon="el-icon-thumb" @click="goLinks('https://www.ruletree.club/sponsor.html')">赞助作者</el-button>
             </el-row>
           </div>
         </div>

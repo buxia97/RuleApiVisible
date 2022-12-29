@@ -22,6 +22,10 @@
                 <el-input v-model="form.pushMasterSecret"  placeholder="请输入pushMasterSecret"></el-input>
               </el-form-item>
               <el-form-item>
+                <p slot="label" class="form-label">是否开启消息推送<span>开启后，APP状态栏将支持推送信息</span></p>
+                <el-switch v-model="form.isPush"></el-switch>
+              </el-form-item>
+              <el-form-item>
                 <el-button type="primary" @click="save()">保存设置</el-button>
               </el-form-item>
             </el-form>
@@ -47,6 +51,7 @@ export default {
         pushAppId: '',
         pushAppKey: '',
         pushMasterSecret: '',
+        isPush: false,
       }
     }
   },
@@ -75,6 +80,11 @@ export default {
       const that = this;
 
       var post=that.form;
+      if(that.form.isPush){
+        post.isPush==1;
+      }else{
+        post.isPush==0;
+      }
       var data = {
         "webkey":that.key,
         "params":JSON.stringify(post)
@@ -119,6 +129,11 @@ export default {
             that.form.pushAppId = res.data.pushAppId;
             that.form.pushAppKey = res.data.pushAppKey;
             that.form.pushMasterSecret = res.data.pushMasterSecret;
+            if(res.data.isPush==1){
+              that.form.isPush = true
+            }else{
+              that.form.isPush = false;
+            }
           }
         })
         .catch(function (error) {
