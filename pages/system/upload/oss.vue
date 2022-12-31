@@ -5,7 +5,7 @@
         <div class="data-box">
           <div class="page-title">
             <h4>OSS上传配置</h4>
-            <p>OSS为阿里云对象存储，和其它上传方式三选一配置即可。</p>
+            <p>OSS为阿里云对象存储，和其它上传方式三选一配置即可，<a href="https://help.aliyun.com/document_detail/31947.html" target="_blank">官方文档</a></p>
           </div>
           <div class="page-form">
             <el-form ref="form" :model="form" label-position="top" label-width="80px">
@@ -26,11 +26,11 @@
                 <el-input v-model="form.aliyunAucketName"  placeholder="请输入存储桶名称BucketName"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">访问地址<span>对象存储外网访问地址</span></p>
+                <p slot="label" class="form-label">访问地址<span>对象存储外网访问地址，格式为https://外网域名/，末尾记得加斜杆</span></p>
                 <el-input v-model="form.aliyunUrlPrefix"  placeholder="请输入对象存储外网访问地址"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">文件夹名称</p>
+                <p slot="label" class="form-label">文件夹名称<span>直接输入名称，不要加斜杠</span></p>
                 <el-input v-model="form.aliyunFilePrefix"  placeholder="请输入文件夹名称"></el-input>
               </el-form-item>
               <el-form-item>

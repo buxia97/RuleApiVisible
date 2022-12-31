@@ -6,6 +6,9 @@ module.exports = {
   typechoInstall:function(){
   	return process.env.baseUrl + 'install/typechoInstall';
   },
+  toUtf8mb4:function(){
+  	return process.env.baseUrl + 'install/toUtf8mb4';
+  },
   apiNewVersion:function(){
   	return process.env.baseUrl + 'system/apiNewVersion';
   },

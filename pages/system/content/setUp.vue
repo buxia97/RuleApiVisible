@@ -45,6 +45,9 @@
                 <el-switch v-model="form.allowDelete"></el-switch>
               </el-form-item>
               <el-form-item>
+                <p slot="label" class="form-label">Utf8mb4支持<span><a href="javascript:;" @click="goUtf8mb4()">点击此处开启</a> 开启后，内容字段将变为Utf8mb4编码，支持emoji表情等特殊符号，但可能会占用更多的数据库空间。</span></p>
+              </el-form-item>
+              <el-form-item>
                 <el-button type="primary" @click="save()">保存设置</el-button>
               </el-form-item>
             </el-form>
@@ -155,11 +158,11 @@ export default {
             if(res.data.auditlevel){
               that.form.auditlevel = res.data.auditlevel+"";
             }
-            
+
             if(res.data.contentAuditlevel){
               that.form.contentAuditlevel = res.data.contentAuditlevel+"";
             }
-            
+
             that.form.forbidden = res.data.forbidden;
             that.form.fields = res.data.fields;
             if(res.data.disableCode==1){
@@ -181,6 +184,51 @@ export default {
             type: 'error'
           })
         })
+    },
+    goUtf8mb4(){
+      const that = this;
+      that.$confirm('将为所有内容字段开启Utf8mb4支持，此操作不可逆！', 'API警告', {
+        confirmButtonText: '马上执行',
+        cancelButtonText: '我再想想',
+        type: 'warning'
+      }).then(() => {
+
+        var data = {
+          "webkey":that.key,
+        }
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
+        that.$axios.$post(that.$api.toUtf8mb4(),this.qs.stringify(data)).then(function (res) {
+          loading.close();
+          if(res.code == 1){
+            that.$message({
+              message: res.msg,
+              type: 'success'
+            });
+            that.getConfig();
+          }else{
+            that.$message({
+              message: res.msg,
+              type: 'error'
+            })
+          }
+        })
+        .catch(function (error) {
+          loading.close();
+          console.log(error)
+            that.$message({
+              message: "接口请求异常，请检查网络！",
+              type: 'error'
+            })
+        })
+      }).catch(() => {
+
+      });
+
     }
   }
 }

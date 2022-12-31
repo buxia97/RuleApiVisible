@@ -493,4 +493,12 @@ b, em, i, strong {
   .page-main{
     padding: 10px;
   }
+  .el-message-box__wrapper{
+    box-sizing: border-box;
+  }
+  .el-message-box{
+    min-width: 350px !important;
+    width: 350px;
+    box-sizing: border-box;
+  }
 }

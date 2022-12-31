@@ -5,7 +5,7 @@
         <div class="data-box">
           <div class="page-title">
             <h4>COS上传配置</h4>
-            <p>COS为腾讯云对象存储，和其它上传方式三选一配置即可。</p>
+            <p>COS为腾讯云对象存储，和其它上传方式三选一配置即可，<a href="https://cloud.tencent.com/document/product/436/7751" target="_blank">官方文档</a></p>
           </div>
           <div class="page-form">
             <el-form ref="form" :model="form" label-position="top" label-width="80px">
@@ -26,11 +26,11 @@
                 <el-input v-model="form.cosBucketName"  placeholder="请输入存储桶名称BucketName"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">访问地址Path<span>对象存储外网访问地址</span></p>
+                <p slot="label" class="form-label">访问地址Path<span>对象存储外网访问地址，格式为https://外网域名，末尾不要加斜杆</span></p>
                 <el-input v-model="form.cosPath"  placeholder="请输入对象存储外网访问地址"></el-input>
               </el-form-item>
               <el-form-item>
-                <p slot="label" class="form-label">文件夹名称</p>
+                <p slot="label" class="form-label">文件夹名称<span>直接输入名称，不要加斜杠</span></p>
                 <el-input v-model="form.cosPrefix"  placeholder="请输入文件夹名称"></el-input>
               </el-form-item>
               <el-form-item>
